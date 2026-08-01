@@ -78,7 +78,7 @@ button {
 .joke_Consume_Div {
     width: 100%;
     height: 100%;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 200px;
@@ -211,7 +211,7 @@ button {
 .joke_Creation_Div {
     width: 100%;
     height: 100%;
-    display: flex;
+    display: none;
     flex-direction: row;
 }
 

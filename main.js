@@ -1,35 +1,52 @@
-let data_save = []
+const createJokeInput = document.getElementById("joke_Content_Inp");
+const createAuthorInput = document.getElementById("joke_Author_Inp");
 
-UI_Elements.Buttons.Add_Btn.addEventListener('click', (e) => {
-})
+const jokeCreationPreview = document.getElementById("joke_label_Creation");
+const jokeAuthorPreview = document.getElementById("author_label_Creation");
 
-UI_Elements.Buttons.Spin_Btn.addEventListener('click', (e) => {
+const spinJokeBtn = document.getElementById("spin_Btn");
+
+const createJokeBtn = document.getElementById("JokeCreateBtn");
+const cancelJokeBnt = document.getElementById("JokeCancelBtn");
+
+
+const jokeLable = document.getElementById("joke_label");
+const authorLabel = document.getElementById("author_label");
+
+let data_save = [];
+let jokeRolling = false;
+
+spinJokeBtn.addEventListener('click', (e) => {
+    if (jokeRolling == true) {
+        return
+    }
+
+    jokeRolling = true
+
+    jokeLable.textContent = "Fetching..."
+    authorLabel.textContent = "Fetching..."
+
     getJoke()
 })
 
+function JokePreviewDisplay() {
+    let joke = createJokeInput.value;
+    if (!joke) joke = "Joke here";
 
+    let author = createAuthorInput.value;
+    if (!author) author = "Author";
 
-UI_Elements.Inputs.joke_Inp.addEventListener('input', (e) => {
-    CardDisplay()
-})
-
-UI_Elements.Inputs.author_Inp.addEventListener('input', (e) => {
-    CardDisplay()
-})
-
-function CardDisplay() {
-
-    if (content.length > 0) {
-        joke_Inp_Short.textContent = content
-    } else {
-        joke_Inp_Short.textContent = 'Joke here'
-    }
-    if (author.length > 0) {
-        author_Inp_Short.textContent = author
-    } else {
-        author_Inp_Short.textContent = 'User'
-    }
+    jokeCreationPreview.textContent = joke;
+    jokeAuthorPreview.textContent = author;
 }
+
+createJokeInput.addEventListener("input", () => {
+    JokePreviewDisplay()
+})
+
+createAuthorInput.addEventListener("input", () => {
+    JokePreviewDisplay()
+})
 
 async function getJoke() {
     await fetch("https://joke-generator-server-3il8.onrender.com/random-joke")
@@ -37,18 +54,41 @@ async function getJoke() {
         .then(data => {
             console.log(data);
 
-            UI_Elements.Labels.joke_Label.textContent = data.content
-            UI_Elements.Labels.author_Label.textContent = data.author
+            jokeLable.textContent = data.content
+            authorLabel.textContent = data.author
+
+            setTimeout(function(){
+                jokeRolling = false
+            },500)
 
             // data_save = []
             // data_save.push(data_save)
         })
-}
-getJoke()
-
-
-
-async function postJoke(joke, author) {
-
+        .catch(error => {
+            jokeRolling = false
+        })
 }
 
+async function postJoke() {
+    try {
+        const content = createJokeInput.value;
+        const author = createAuthorInput.value;
+
+        const response = await fetch("https://joke-generator-server-3il8.onrender.com/joke", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({content, author })
+        });
+
+        const data = await response.json();
+        console.log(data);
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+createJokeBtn.addEventListener("click", async () => {
+    await postJoke();
+});

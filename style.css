@@ -2,5 +2,268 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Playpen Sans';
+    font-family: 'Open Sans';
+}
+
+button {
+    cursor: pointer;
+}
+
+.wrap {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #282032;
+}
+
+::selection {
+    background-color: #282032;
+    color: #fff;
+}
+
+.header {
+    width: 100%;
+    height: 7vh;
+    display: flex;
+    flex-direction: row;
+    background-color: #FFD782;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 100%;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 1rem;
+
+    img {
+        height: 65%;
+        aspect-ratio: 1/1;
+    }
+
+    p {
+        font-family: 'Playpen Sans';
+        font-size: 1.6rem;
+        font-weight: 500;
+        margin-left: -0.3rem;
+        /* Black magic right here */
+    }
+}
+
+.liked_Header_Div {
+    height: 100%;
+    width: auto;
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+
+    button {
+        height: 80%;
+        aspect-ratio: 1/1;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+    }
+}
+
+.main {
+    width: 100%;
+    height: 93vh;
+    display: flex;
+}
+
+.joke_Consume_Div {
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 200px;
+}
+
+.joke_Container {
+    width: 500px;
+    height: 250px;
+    background-color: #FFD782;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+}
+
+.JC_Joke {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+    font-size: 1.5rem;
+    text-align: center;
+
+    h3 {
+        font-family: 'Playpen Sans';
+        font-weight: 500;
+    }
+}
+
+.JC_Author {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+.joke_Heart_Container {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+        height: 75%;
+        aspect-ratio: 1/1;
+        font-size: 1.5rem;
+        border-radius: 50%;
+        background-color: #FF5356;
+        border: none;
+    }
+}
+
+.joke_Btns {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+        height: 50%;
+        aspect-ratio: 1/1;
+        font-size: 2rem;
+        border-radius: 1.5rem;
+        border: none;
+        transition: 0.2s;
+
+        i {
+            transition: 0.2s;
+        }
+    }
+
+    button:hover {
+        transform: scale(1.1);
+        filter: brightness(1.1);
+    }
+}
+
+#spin_Btn {
+    height: 65%;
+    aspect-ratio: 1/1;
+    font-size: 3rem;
+    background-color: #FFD782;
+}
+
+#spin_Btn:active {
+    i {
+        color: #fff;
+
+    }
+
+    background-color: #ffae00;
+}
+
+#report_Btn {
+    background-color: #FF7C70;
+}
+
+#report_Btn:active {
+    i {
+        color: #fff;
+
+    }
+
+
+    background-color: #d61a09;
+}
+
+#add_Btn {
+    background-color: #C8FF6E;
+}
+
+#add_Btn:active {
+    i {
+        color: #fff;
+
+    }
+
+    background-color: #96f400;
+}
+
+.joke_Creation_Div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.joke_Inputs {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+
+    textarea {
+        width: 75%;
+        height: 300px;
+        border-radius: 12px;
+        font-size: 1.4rem;
+        padding: 1rem;
+        border: none;
+        background-color: #FFD782;
+    }
+
+    textarea::placeholder {
+        color: #503277;
+    }
+
+    input {
+        width: 75%;
+        height: 50px;
+        border-radius: 8px;
+        border: none;
+        background-color: #FFD782;
+        font-size: 1.35rem;
+        padding: 1rem;
+    }
+
+    input::placeholder {
+        color: #503277;
+    }
+}
+
+.joke_Creation {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.joke_Creation_Btns {
+    width: 100%;
+    height: 100px;
 }

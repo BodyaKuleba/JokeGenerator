@@ -17,14 +17,6 @@ let data_save = [];
 let jokeRolling = false;
 
 spinJokeBtn.addEventListener('click', (e) => {
-    if (jokeRolling == true) {
-        return
-    }
-
-    jokeRolling = true
-
-    jokeLable.textContent = "Fetching..."
-    authorLabel.textContent = "Fetching..."
 
     getJoke()
 })
@@ -49,6 +41,15 @@ createAuthorInput.addEventListener("input", () => {
 })
 
 async function getJoke() {
+    if (jokeRolling == true) {
+        return
+    }
+
+    jokeRolling = true
+
+    jokeLable.textContent = "Fetching..."
+    authorLabel.textContent = "Fetching..."
+
     await fetch("https://joke-generator-server-3il8.onrender.com/random-joke")
         .then(response => response.json())
         .then(data => {
@@ -57,9 +58,9 @@ async function getJoke() {
             jokeLable.textContent = data.content
             authorLabel.textContent = data.author
 
-            setTimeout(function(){
+            setTimeout(function () {
                 jokeRolling = false
-            },500)
+            }, 100)
 
             // data_save = []
             // data_save.push(data_save)
@@ -68,6 +69,8 @@ async function getJoke() {
             jokeRolling = false
         })
 }
+
+getJoke()
 
 async function postJoke() {
     try {
@@ -79,7 +82,7 @@ async function postJoke() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({content, author })
+            body: JSON.stringify({ content, author })
         });
 
         const data = await response.json();

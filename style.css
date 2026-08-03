@@ -23,28 +23,22 @@ button {
     color: #fff;
 }
 
-.dialogBody {
-    width: 100%;
-    height: 100%;
-    display: flex;
+.server_Msg {
+    width: 550px;
+    height: 280px;
+    display: none;
+    position: absolute;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    translate: -50% -50%;
+    top: 50%;
+    left: 50%;
     gap: 1rem;
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
     border-radius: 1rem;
     backdrop-filter: blur(10px);
-}
-
-#ServerMessage {
-    width: 550px;
-    height: 280px;
-    translate: -50% -50%;
-    top: 50%;
-    left: 50%;
-    background: none;
-    border: none;
 }
 
 .header {

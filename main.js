@@ -9,15 +9,22 @@ const spinJokeBtn = document.getElementById("spin_Btn");
 const createJokeBtn = document.getElementById("JokeCreateBtn");
 const cancelJokeBnt = document.getElementById("JokeCancelBtn");
 
-
 const jokeLable = document.getElementById("joke_label");
 const authorLabel = document.getElementById("author_label");
+
+const ServerMessage = document.getElementById('ServerMessage')
+const SM_Btn = document.getElementById('SM_Btn')
+
+ServerMessage.show()
+
+SM_Btn.addEventListener('click', (e) => {
+    ServerMessage.close()
+})
 
 let data_save = [];
 let jokeRolling = false;
 
 spinJokeBtn.addEventListener('click', (e) => {
-
     getJoke()
 })
 

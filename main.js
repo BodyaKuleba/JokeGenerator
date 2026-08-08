@@ -16,14 +16,8 @@ const cancelJokeBnt = document.getElementById("JokeCancelBtn");
 const jokeLable = document.getElementById("joke_label");
 const authorLabel = document.getElementById("author_label");
 
-const ServerMessage = document.getElementById('ServerMessage')
+const ServerMessage = document.getElementById('server_Message')
 const SM_Btn = document.getElementById('SM_Btn')
-
-ServerMessage.show()
-
-SM_Btn.addEventListener('click', (e) => {
-    ServerMessage.close()
-})
 
 let data_save = [];
 let jokeRolling = false;
@@ -41,6 +35,30 @@ cancelJokeBnt.addEventListener('click', (e) => {
     joke_Creation_Div.style.display = 'none'
     joke_Consume_Div.style.display = 'flex'
 })
+
+async function checkServerLive() {
+    const timeout = setTimeout(() => {
+        ServerMessage.style.display = "flex";
+
+        checkServerLive()
+    }, 3000)
+
+    try {
+        const response = await fetch("https://joke-generator-server-3il8.onrender.com/health");
+
+        if (response.ok) {
+            clearTimeout(timeout)
+            ServerMessage.style.display = "none";
+            getJoke()
+        }
+
+        console.log(response);
+    } catch (error) {
+        ServerMessage.style.display = "flex"
+    }
+}
+
+checkServerLive()
 
 function JokePreviewDisplay() {
     let joke = createJokeInput.value;

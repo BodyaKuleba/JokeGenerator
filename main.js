@@ -1,10 +1,14 @@
+const joke_Consume_Div = document.getElementById('joke_Consume_Div')
+const joke_Creation_Div = document.getElementById('joke_Creation_Div')
+
 const createJokeInput = document.getElementById("joke_Content_Inp");
 const createAuthorInput = document.getElementById("joke_Author_Inp");
 
 const jokeCreationPreview = document.getElementById("joke_label_Creation");
 const jokeAuthorPreview = document.getElementById("author_label_Creation");
 
-const spinJokeBtn = document.getElementById("spin_Btn");
+const spin_Btn = document.getElementById("spin_Btn");
+const add_Btn = document.getElementById('add_Btn')
 
 const createJokeBtn = document.getElementById("JokeCreateBtn");
 const cancelJokeBnt = document.getElementById("JokeCancelBtn");
@@ -24,13 +28,24 @@ SM_Btn.addEventListener('click', (e) => {
 let data_save = [];
 let jokeRolling = false;
 
-spinJokeBtn.addEventListener('click', (e) => {
+spin_Btn.addEventListener('click', (e) => {
     getJoke()
+})
+
+add_Btn.addEventListener('click', (e) => {
+    joke_Creation_Div.style.display = 'flex'
+    joke_Consume_Div.style.display = 'none'
+})
+
+cancelJokeBnt.addEventListener('click', (e) => {
+    joke_Creation_Div.style.display = 'none'
+    joke_Consume_Div.style.display = 'flex'
 })
 
 function JokePreviewDisplay() {
     let joke = createJokeInput.value;
     if (!joke) joke = "Joke here";
+
 
     let author = createAuthorInput.value;
     if (!author) author = "Author";

@@ -22,9 +22,11 @@ const authorLabel = document.getElementById("author_label");
 const ServerMessage = document.getElementById('server_Message')
 const SM_Btn = document.getElementById('SM_Btn')
 
+const SAVED_JOKES_KEY = "SavedJokes"
+
 let data_save = [];
 let jokeRolling = false;
-let LS_JokeArr = JSON.parse(localStorage.getItem('SavedJokes')) || []
+let LS_JokeArr = JSON.parse(localStorage.getItem(SAVED_JOKES_KEY)) || []
 
 async function checkServerLive() {
     const timeout = setTimeout(() => {
@@ -50,30 +52,66 @@ async function checkServerLive() {
 
 checkServerLive()
 
-function iconFillVisual() {
-    if (s) {
-
-    }
+function iconFillVisual(target,icon) {
+    target.innerHTML = icon
 }
 
 function checkExistingJoke() {
     for (let object of LS_JokeArr) {
         if (object._id == data_save._id) {
-            return false
+            return object
         }
     }
     return true
 }
 
+function isJokeSaved(_id) {
+    for (let object of LS_JokeArr) {
+        if (object._id == _id) {
+            return object
+        }
+    }
+
+    return null
+}
+
+function removeLSJoke(_id) {
+    for (let object of LS_JokeArr) {
+        if (object._id == _id) {
+            LS_JokeArr = LS_JokeArr.filter(object => object._id !== _id)
+
+            iconFillVisual(saveBtn,`<i class="fa-regular fa-bookmark"></i>`)
+
+            saveData()
+
+            return object
+        }
+    }
+
+    return null
+}
+
+function saveData() {
+    localStorage.setItem(SAVED_JOKES_KEY, JSON.stringify(LS_JokeArr))
+}
+
 function LS_SaveJokes() {
     let existingJoke = checkExistingJoke()
-    if (!existingJoke) return
+
+    if (existingJoke) {
+        removeLSJoke(existingJoke._id)
+
+        return
+    }
+
+    console.log(data_save);
+    
 
     if (data_save) {
         LS_JokeArr.push(data_save)
     }
 
-    localStorage.setItem('SavedJokes', JSON.stringify(LS_JokeArr))
+    saveData()
 
     console.log(LS_JokeArr);
 
@@ -108,6 +146,18 @@ async function getJoke() {
 
             jokeLable.textContent = data.content
             authorLabel.textContent = data.author
+
+            let checkSaved = isJokeSaved(data._id)
+            let ico
+
+            if (checkSaved) {
+                ico = `<i class="fa-solid fa-bookmark"></i>`
+            } else {
+                ico = `<i class="fa-regular fa-bookmark"></i>`
+            }
+
+            iconFillVisual(true,saveBtn,ico)
+
 
             setTimeout(function () {
                 jokeRolling = false

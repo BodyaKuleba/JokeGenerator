@@ -10,6 +10,9 @@ const jokeAuthorPreview = document.getElementById("author_label_Creation");
 const spin_Btn = document.getElementById("spin_Btn");
 const add_Btn = document.getElementById('add_Btn')
 
+const heartBtn = document.getElementById('heartBtn')
+const saveBtn = document.getElementById('saveBtn')
+
 const createJokeBtn = document.getElementById("JokeCreateBtn");
 const cancelJokeBnt = document.getElementById("JokeCancelBtn");
 
@@ -21,20 +24,7 @@ const SM_Btn = document.getElementById('SM_Btn')
 
 let data_save = [];
 let jokeRolling = false;
-
-spin_Btn.addEventListener('click', (e) => {
-    getJoke()
-})
-
-add_Btn.addEventListener('click', (e) => {
-    joke_Creation_Div.style.display = 'flex'
-    joke_Consume_Div.style.display = 'none'
-})
-
-cancelJokeBnt.addEventListener('click', (e) => {
-    joke_Creation_Div.style.display = 'none'
-    joke_Consume_Div.style.display = 'flex'
-})
+let LS_JokeArr = JSON.parse(localStorage.getItem('SavedJokes')) || []
 
 async function checkServerLive() {
     const timeout = setTimeout(() => {
@@ -60,6 +50,35 @@ async function checkServerLive() {
 
 checkServerLive()
 
+function iconFillVisual() {
+    if (s) {
+
+    }
+}
+
+function checkExistingJoke() {
+    for (let object of LS_JokeArr) {
+        if (object._id == data_save._id) {
+            return false
+        }
+    }
+    return true
+}
+
+function LS_SaveJokes() {
+    let existingJoke = checkExistingJoke()
+    if (!existingJoke) return
+
+    if (data_save) {
+        LS_JokeArr.push(data_save)
+    }
+
+    localStorage.setItem('SavedJokes', JSON.stringify(LS_JokeArr))
+
+    console.log(LS_JokeArr);
+
+}
+
 function JokePreviewDisplay() {
     let joke = createJokeInput.value;
     if (!joke) joke = "Joke here";
@@ -71,14 +90,6 @@ function JokePreviewDisplay() {
     jokeCreationPreview.textContent = joke;
     jokeAuthorPreview.textContent = author;
 }
-
-createJokeInput.addEventListener("input", () => {
-    JokePreviewDisplay()
-})
-
-createAuthorInput.addEventListener("input", () => {
-    JokePreviewDisplay()
-})
 
 async function getJoke() {
     if (jokeRolling == true) {
@@ -102,8 +113,7 @@ async function getJoke() {
                 jokeRolling = false
             }, 100)
 
-            // data_save = []
-            // data_save.push(data_save)
+            data_save = data
         })
         .catch(error => {
             jokeRolling = false
@@ -132,6 +142,55 @@ async function postJoke() {
     }
 }
 
+async function getIP() {
+    try {
+        const response = await fetch('https://joke-generator-server-3il8.onrender.com/get-ip')
+        const data = await response.json
+
+        console.log(`IP: ${data}`);
+    }
+    catch (err) {
+        console.log(`Error with fetching ip: ${err}`);
+    }
+}
+getIP()
+
+//button listeners
+spin_Btn.addEventListener('click', (e) => {
+    getJoke()
+})
+
+add_Btn.addEventListener('click', (e) => {
+    joke_Creation_Div.style.display = 'flex'
+    joke_Consume_Div.style.display = 'none'
+})
+
+cancelJokeBnt.addEventListener('click', (e) => {
+    joke_Creation_Div.style.display = 'none'
+    joke_Consume_Div.style.display = 'flex'
+})
+
 createJokeBtn.addEventListener("click", async () => {
     await postJoke();
+    joke_Creation_Div.style.display = 'none'
+    joke_Consume_Div.style.display = 'flex'
 });
+
+heartBtn.addEventListener('click', (e) => {
+
+})
+
+saveBtn.addEventListener('click', (e) => {
+    LS_SaveJokes()
+})
+
+
+
+//input listeners
+createJokeInput.addEventListener("input", () => {
+    JokePreviewDisplay()
+})
+
+createAuthorInput.addEventListener("input", () => {
+    JokePreviewDisplay()
+})

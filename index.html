@@ -20,7 +20,7 @@
 <body>
     <div class="wrap">
         <div class="server_Msg" id="server_Message">
-            <h3>Server is currently slepping (please wait)</h3>
+            <h3>Server is currently sleeping</h3>
 
             <button id="server_retry_Btn">Retry</button>
         </div>
@@ -30,8 +30,8 @@
                 <img src="images/Logo.png" alt="Mantom">
                 <p>Mantom Jokes</p>
             </div>
-            <div class="liked_Header_Div">
-                <button><i class="fa-solid fa-heart"></i></button>
+            <div class="saved_Header_Div">
+                <button><i class="fa-solid fa-bookmark"></i></i></button>
             </div>
         </div>
         <div class="main">
@@ -42,10 +42,12 @@
                     </div>
                     <div class="JC_Author">
                         <h4 id="author_label">Author</h4>
+                        <h4 id="like_label">0<i class="fa-solid fa-heart"></i></h4>
                     </div>
                 </div>
-                <div class="joke_Heart_Container">
-                    <button><i class="fa-solid fa-heart"></i></button>
+                <div class="joke_Bookmark_Container">
+                    <button id="saveBtn" class="saveBtnStyle"><i class="fa-solid fa-bookmark"></i></button>
+                    <button id="heartBtn" class="heartBtnStyle"><i class="fa-solid fa-heart"></i></button>
                 </div>
                 <div class="joke_Btns">
                     <button id="report_Btn"><i class="fa-solid fa-flag"></i></button>
